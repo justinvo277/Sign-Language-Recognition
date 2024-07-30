@@ -54,12 +54,12 @@ pip3 install torch torchvision torchaudio --index-url https://download.pytorch.o
 
 3. Clone the repository:
 ```bash
-git clone https://github.com/justinvo277/Sign-Language-Recognition-.git
+git clone https://github.com/justinvo277/Sign-Language-Recognition.git
 ```
 
 4. Navigate to directory:
 ```bash
-cd Sign-Language-Recognition-
+cd Sign-Language-Recognition
 ```
 
 5. Install the required dependencies:
@@ -70,13 +70,13 @@ pip install -r requirements.txt
 
 1. The first step is to preprocess the data from the raw data you have downloaded.:
 ```bash
-cd Sign-Language-Recognition-\preprocessing_data
+cd Sign-Language-Recognition\preprocessing_data
 python create_data_train.py --dataset_name "Name of dataset" --root_path "dataset folder" -dir_path "folder save dataset after preprocessing"
 ```
 
 2. The first step is to preprocess the data from the raw data you have downloaded.:
 ```bash
-cd Sign-Language-Recognition-\ cd ..
+cd Sign-Language-Recognition\ cd ..
 python train.py --data_name "Name of dataset" --data_folder_path "Enter your data folder path fter preprocessin" --num_classes "Enter number of classification" --batch_size "Enter batch size of a iteration" --lr "Enter learning rate for trainning"
 ```
 
