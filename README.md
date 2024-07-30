@@ -68,5 +68,15 @@ pip install -r requirements.txt
 ```
 ## Usage
 
+1. The first step is to preprocess the data from the raw data you have downloaded.:
+```bash
+cd Sign-Language-Recognition-\preprocessing_data
+python create_data_train.py --dataset_name "Name of dataset" --root_path "dataset folder" -dir_path "folder save dataset after preprocessing"
+```
 
+2. The first step is to preprocess the data from the raw data you have downloaded.:
+```bash
+cd Sign-Language-Recognition-\ cd ..
+python train.py --data_name "Name of dataset" --data_folder_path "Enter your data folder path fter preprocessin" --num_classes "Enter number of classification" --batch_size "Enter batch size of a iteration" --lr "Enter learning rate for trainning"
+```
 
