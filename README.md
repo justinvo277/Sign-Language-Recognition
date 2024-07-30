@@ -80,3 +80,16 @@ cd Sign-Language-Recognition-\ cd ..
 python train.py --data_name "Name of dataset" --data_folder_path "Enter your data folder path fter preprocessin" --num_classes "Enter number of classification" --batch_size "Enter batch size of a iteration" --lr "Enter learning rate for trainning"
 ```
 
+## Citation
+
+```bash
+@inproceedings{tang2024twostream,
+  author = {Hieu Quang Tang and Truong Dinh Nhat Vo and Tho Phuc Tran and Dong Dong Pham},
+  title = {Two-Stream S3D Architecture for Word-Level Sign Language Recognition},
+  booktitle = {Proceedings of the 2024 9th International Conference on Intelligent Information Technology (ICIIT '24)},
+  year = {2024},
+  pages = {365-370},
+  doi = {10.1145/3654522.3654559},
+  publisher = {ACM}
+}
+```
