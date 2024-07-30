@@ -40,17 +40,29 @@ WLASL_100/
     └── # Validation data goes here
 ```
 ## Installation
-1. Clone the repository:
+
+1. Creating a Conda Environment:
+```bash
+conda create --name slr_env python=3.8
+conda activate slr_env
+```
+
+2. Install pytorch:
+```bash
+pip3 install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu118
+```
+
+3. Clone the repository:
 ```bash
 git clone https://github.com/justinvo277/Sign-Language-Recognition-.git
 ```
 
-2. Navigate to directory:
+4. Navigate to directory:
 ```bash
 cd Sign-Language-Recognition-
 ```
 
-3. Install the required dependencies:
+5. Install the required dependencies:
 ```bash
 pip install -r requirements.txt
 ```
