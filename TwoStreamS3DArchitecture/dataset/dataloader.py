@@ -51,7 +51,7 @@ class VideoDataset(Dataset):
         return data_dict
 
     def _preprocess_frame(self, frame: np.array) -> np.array:
-        frame = cv.resize(frame.astype(np.float32) / 255.0, (32, 32))
+        frame = cv.resize(frame.astype(np.float32) / 255.0, (224, 224))
         return frame
 
     def _load_and_preprocess_frames(self, path: str, num_frames: int) -> torch.tensor:

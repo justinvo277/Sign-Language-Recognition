@@ -40,23 +40,14 @@ if __name__ == "__main__":
         DEVICE = torch.device('cpu')
 
     #Dataloder train with balance sample each class for train phase;
+    print("LOADING DATASET TO TRAIN !!!")
     dataset_train = VideoDataset(args.data_folder_path, args.num_frames, phase="train")
     dataloader_train = torch.utils.data.DataLoader(dataset_train, batch_size=args.batch_size, num_workers=4, prefetch_factor=2, pin_memory=True, shuffle=True)
-    print("LOADING DATASET TO TRAIN !!!")
-    dataloader_train_lst = []
-    loop_train = tqdm(dataloader_train, leave=True)
-    for batch_idx, (rgb_frames, kp_frames, labels) in enumerate(loop_train):
-        dataloader_train_lst.append((rgb_frames, kp_frames, labels))
 
-        #Dataloder for validation and test phase;
+    #Dataloder for validation and test phase;
+    print("LOADING DATASET TO TEST !!!")
     dataset_test = VideoDataset(args.data_folder_path, args.num_frames, phase="test")
     dataloader_test = torch.utils.data.DataLoader(dataset_test, batch_size=args.batch_size, num_workers=4, prefetch_factor=2, pin_memory=True, shuffle=True)
-    print("LOADING DATASET TO TEST !!!")
-    dataloader_test_lst = []
-    loop_test = tqdm(dataloader_test, leave=True)
-    for batch_idx, (rgb_frames, kp_frames, labels) in enumerate(loop_test):
-        dataloader_test_lst.append((rgb_frames, kp_frames, labels))
-
 
     model = TwoStreamS3D(num_classes=args.num_classes)
     if args.pretrained != None:
@@ -94,24 +85,23 @@ if __name__ == "__main__":
 
         print(f"EPOCH [{epoch}/{args.num_epochs}]: ")
         print("Trainning Phase")
-        res_train = training_loop(model=model, dataloader=dataloader_train_lst, 
+        res_train = training_loop(model=model, dataloader=dataloader_train, 
         optimizer=optimizer, scheduler=scheduler, loss_fn=criterion,device=DEVICE, log_path=args.folder_log_path, 
         epoch=epoch)
         print(f"Loss training phase is {res_train['loss']}, accuracy is {res_train['accuracy']}")
 
         if epoch % args.max_viz == 0:
             print("Validation Phase")
-            res_val = validation_loop(model=model, dataloader=dataloader_test_lst, loss_fn=criterion, image_size=args.image_size, device=DEVICE)
+            res_val = validation_loop(model=model, dataloader=dataloader_test, loss_fn=criterion, image_size=args.image_size, device=DEVICE)
             print(f"Loss training phase is {res_val['loss']}, accuracy is {res_val['accuracy']}")
             early_stopping(res_val['loss'], model)
             if early_stopping.early_stop:
                 print("Early stopping")
-                break
-            
-        # print("\n")
+                break     
+        print("\n")
 
     print("Testing Phase")
-    res_test = validation_loop(model=model, dataloader=dataloader_test_lst, loss_fn=criterion, image_size=args.image_size, device=DEVICE)
+    res_test = validation_loop(model=model, dataloader=dataloader_test, loss_fn=criterion, image_size=args.image_size, device=DEVICE)
     print(f"Loss training phase is {res_test['loss']}, accuracy is {res_test['accuracy']}")
     weight = args.dataset_name + "_best.pth"
     weight_path = os.path.join(args.folder_save_weight, weight)

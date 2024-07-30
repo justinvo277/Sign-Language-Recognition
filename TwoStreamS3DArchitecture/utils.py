@@ -9,7 +9,7 @@ def count_parameters(model):
 ##################### TRAIN & VAILIDATION #####################
 
 def training_loop(model: torch.nn.Module, dataloader: torch.utils.data.DataLoader, optimizer: torch.optim, 
-                loss_fn: torch.nn, scheduler: torch.optim, device: torch.cuda, log_path:str, epoch: int, image_size:int=224) -> tuple:
+                loss_fn: torch.nn, scheduler: torch.optim, device: torch.cuda, log_path:str, epoch: int) -> tuple:
     
     loop = tqdm(dataloader, leave=True)
 
@@ -20,9 +20,6 @@ def training_loop(model: torch.nn.Module, dataloader: torch.utils.data.DataLoade
     total_sample = 0
 
     for batch_idx, (rgb_frames, kp_frames, labels) in enumerate(loop):
-
-        rgb_frames = torch.nn.functional.interpolate(rgb_frames, size=(32, image_size, image_size), mode='trilinear', align_corners=False)
-        kp_frames = torch.nn.functional.interpolate(kp_frames, size=(32, image_size, image_size), mode='trilinear', align_corners=False)
 
         rgb_frames = rgb_frames.to(device)  
         kp_frames = kp_frames.to(device)
@@ -53,7 +50,7 @@ def training_loop(model: torch.nn.Module, dataloader: torch.utils.data.DataLoade
     
     return res_dict
 
-def validation_loop(model: torch.nn.Module, dataloader: torch.utils.data.DataLoader, loss_fn: torch.nn, image_size: int, device: torch.cuda) -> dict:
+def validation_loop(model: torch.nn.Module, dataloader: torch.utils.data.DataLoader, loss_fn: torch.nn, device: torch.cuda) -> dict:
 
 
     loop = tqdm(dataloader, leave=True)
@@ -66,9 +63,6 @@ def validation_loop(model: torch.nn.Module, dataloader: torch.utils.data.DataLoa
 
     with torch.no_grad():
         for batch_idx, (rgb_frames, kp_frames, labels) in enumerate(loop):
-
-            rgb_frames = torch.nn.functional.interpolate(rgb_frames, size=(32, image_size, image_size), mode='trilinear', align_corners=False)
-            kp_frames = torch.nn.functional.interpolate(kp_frames, size=(32, image_size, image_size), mode='trilinear', align_corners=False)
 
             rgb_frames = rgb_frames.to(device)  
             kp_frames = kp_frames.to(device)
