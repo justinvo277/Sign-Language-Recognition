@@ -39,5 +39,22 @@ WLASL_100/
 └── val/
     └── # Validation data goes here
 ```
+## Installation
+1. Clone the repository:
+```bash
+git clone https://github.com/justinvo277/Sign-Language-Recognition-.git
+```
+
+2. Navigate to directory:
+```bash
+cd Sign-Language-Recognition-
+```
+
+3. Install the required dependencies:
+```bash
+pip install -r requirements.txt
+```
+## Usage
+
 
 
